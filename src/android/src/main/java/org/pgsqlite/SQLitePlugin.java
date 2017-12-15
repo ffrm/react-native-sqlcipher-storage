@@ -913,7 +913,7 @@ public class SQLitePlugin extends ReactContextBaseJavaModule {
 
             // Build up JSON result object for each row
             do {
-                Map row = new HashMap;
+                Map row = new HashMap();
 
                 for (int i = 0; i < colCount; ++i) {
                     key = cur.getColumnName(i);
