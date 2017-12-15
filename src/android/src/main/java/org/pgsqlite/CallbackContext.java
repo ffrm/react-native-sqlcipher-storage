@@ -25,6 +25,14 @@ public class CallbackContext {
         this.errorCallback = error;
     }
 
+    public void success(WritableMap message) {
+        successCallback.invoke(message);
+    }
+
+    public void success(WritableArray message) {
+        successCallback.invoke(message);
+    }
+
     /**
      * Helper for success callbacks that just returns the Status.OK by default
      *
@@ -60,7 +68,6 @@ public class CallbackContext {
         } catch (JSONException ex){
             errorCallback.invoke("Internal error converting results:"+ex.getMessage());
         }
-
     }
 
     /**

@@ -19,10 +19,15 @@ import android.os.Bundle;
 import android.util.Base64;
 import android.util.Log;
 
+import com.google.gson.Gson;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.lang.IllegalArgumentException;
 import java.lang.Number;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ExecutorService;
@@ -31,6 +36,7 @@ import java.util.concurrent.LinkedBlockingQueue;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
@@ -598,14 +604,14 @@ public class SQLitePlugin extends ReactContextBaseJavaModule {
         String query;
         String query_id;
         int len = queryarr.length;
-        JSONArray batchResults = new JSONArray();
+        ArrayList<Map> batchResults = new ArrayList<>();
 
         for (int i = 0; i < len; i++) {
             int rowsAffectedCompat = 0;
             boolean needRowsAffectedCompat = false;
             query_id = queryIDs[i];
 
-            JSONObject queryResult = null;
+            Map queryResult = null;
             String errorMessage = "unknown";
 
             try {
@@ -642,7 +648,7 @@ public class SQLitePlugin extends ReactContextBaseJavaModule {
                         }
 
                         if (rowsAffected != -1) {
-                            queryResult = new JSONObject();
+                            queryResult = new HashMap();
                             queryResult.put("rowsAffected", rowsAffected);
                         }
                     } else { // pre-honeycomb
@@ -665,7 +671,7 @@ public class SQLitePlugin extends ReactContextBaseJavaModule {
                         insertId = myStatement.executeInsert();
 
                         // statement has finished with no constraint violation:
-                        queryResult = new JSONObject();
+                        queryResult = new HashMap();
                         if (insertId != -1) {
                             queryResult.put("insertId", insertId);
                             queryResult.put("rowsAffected", 1);
@@ -686,7 +692,7 @@ public class SQLitePlugin extends ReactContextBaseJavaModule {
                     try {
                         mydb.beginTransaction();
 
-                        queryResult = new JSONObject();
+                        queryResult = new HashMap();
                         queryResult.put("rowsAffected", 0);
                     } catch (SQLiteException ex) {
                         ex.printStackTrace();
@@ -701,7 +707,7 @@ public class SQLitePlugin extends ReactContextBaseJavaModule {
                         mydb.setTransactionSuccessful();
                         mydb.endTransaction();
 
-                        queryResult = new JSONObject();
+                        queryResult = new HashMap();
                         queryResult.put("rowsAffected", 0);
                     } catch (SQLiteException ex) {
                         ex.printStackTrace();
@@ -715,7 +721,7 @@ public class SQLitePlugin extends ReactContextBaseJavaModule {
                     try {
                         mydb.endTransaction();
 
-                        queryResult = new JSONObject();
+                        queryResult = new HashMap();
                         queryResult.put("rowsAffected", 0);
                     } catch (SQLiteException ex) {
                         ex.printStackTrace();
@@ -738,33 +744,28 @@ public class SQLitePlugin extends ReactContextBaseJavaModule {
                 Log.v("executeSqlBatch", "SQLitePlugin.executeSql[Batch](): Error=" + errorMessage);
             }
 
-            try {
-                if (queryResult != null) {
-                    JSONObject r = new JSONObject();
-                    r.put("qid", query_id);
+            if (queryResult != null) {
+                Map r = new HashMap();
+                r.put("qid", query_id);
 
-                    r.put("type", "success");
-                    r.put("result", queryResult);
+                r.put("type", "success");
+                r.put("result", queryResult);
 
-                    batchResults.put(r);
-                } else {
-                    JSONObject r = new JSONObject();
-                    r.put("qid", query_id);
-                    r.put("type", "error");
+                batchResults.add(r);
+            } else {
+                Map r = new HashMap();
+                r.put("qid", query_id);
+                r.put("type", "error");
 
-                    JSONObject er = new JSONObject();
-                    er.put("message", errorMessage);
-                    r.put("result", er);
+                Map er = new HashMap();
+                er.put("message", errorMessage);
+                r.put("result", er);
 
-                    batchResults.put(r);
-                }
-            } catch (JSONException ex) {
-                ex.printStackTrace();
-                Log.v("executeSqlBatch", "SQLitePlugin.executeSql[Batch](): Error=" + ex.getMessage());
+                batchResults.add(r);
             }
         }
 
-        cbc.success(batchResults);
+        cbc.success(new Gson().toJson(batchResults).toString());
     }
 
     private int countRowsAffectedCompat(QueryType queryType, String query, JSONArray[] jsonparams,
@@ -878,10 +879,10 @@ public class SQLitePlugin extends ReactContextBaseJavaModule {
      *
      * @return results in string form
      */
-    private JSONObject executeSqlStatementQuery(SQLiteDatabase mydb,
+    private Map executeSqlStatementQuery(SQLiteDatabase mydb,
                                                 String query, JSONArray paramsAsJson,
                                                 CallbackContext cbc) throws Exception {
-        JSONObject rowsResult = new JSONObject();
+        Map rowsResult = new HashMap();
 
         Cursor cur;
         try {
@@ -906,42 +907,23 @@ public class SQLitePlugin extends ReactContextBaseJavaModule {
 
         // If query result has rows
         if (cur != null && cur.moveToFirst()) {
-            JSONArray rowsArrayResult = new SQLiteArray(cur.getCount());
+            ArrayList<Map> rowsArrayResult = new ArrayList<>();
             String key;
             int colCount = cur.getColumnCount();
 
             // Build up JSON result object for each row
             do {
-                JSONObject row = new SQLiteObject(colCount);
-                try {
-                    for (int i = 0; i < colCount; ++i) {
-                        key = cur.getColumnName(i);
+                Map row = new HashMap;
 
-                        if (android.os.Build.VERSION.SDK_INT >= 11) {
-
-                            // Use try & catch just in case android.os.Build.VERSION.SDK_INT >= 11 is lying:
-                            try {
-                                bindPostHoneycomb(row, key, cur, i);
-                            } catch (Exception ex) {
-                                bindPreHoneycomb(row, key, cur, i);
-                            }
-                        } else {
-                            bindPreHoneycomb(row, key, cur, i);
-                        }
-                    }
-
-                    rowsArrayResult.put(row);
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
+                for (int i = 0; i < colCount; ++i) {
+                    key = cur.getColumnName(i);
+                    bindRow(row, key, cur, i);
                 }
+
+                rowsArrayResult.add(row);
             } while (cur.moveToNext());
 
-            try {
-                rowsResult.put("rows", rowsArrayResult);
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
+            rowsResult.put("rows", rowsArrayResult);
         }
 
         if (cur != null) {
@@ -949,6 +931,30 @@ public class SQLitePlugin extends ReactContextBaseJavaModule {
         }
 
         return rowsResult;
+    }
+
+    @SuppressLint("NewApi")
+    private void bindRow(Map row, String key, Cursor cur, int i) {
+        int curType = cur.getType(i);
+
+        switch (curType) {
+            case Cursor.FIELD_TYPE_NULL:
+                row.put(key, null);
+                break;
+            case Cursor.FIELD_TYPE_INTEGER:
+                row.put(key, cur.getInt(i));
+                break;
+            case Cursor.FIELD_TYPE_FLOAT:
+                row.put(key, cur.getDouble(i));
+                break;
+            case Cursor.FIELD_TYPE_BLOB:
+                row.put(key, new String(Base64.encode(cur.getBlob(i), Base64.DEFAULT)));
+                break;
+            case Cursor.FIELD_TYPE_STRING:
+            default: /* (not expected) */
+                row.put(key, cur.getString(i));
+                break;
+        }
     }
 
     @SuppressLint("NewApi")
