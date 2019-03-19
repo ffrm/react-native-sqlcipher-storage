@@ -9,8 +9,8 @@
 /* Begin PBXBuildFile section */
 		3C9CC8542225B03700FDC2BE /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C9CC8532225B03700FDC2BE /* Security.framework */; };
 		3C9CC8562225B03C00FDC2BE /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C9CC8552225B03C00FDC2BE /* Foundation.framework */; };
-		3CF5EB4B224184DF00970543 /* sqlite3.h in Headers */ = {isa = PBXBuildFile; fileRef = 3CF5EB49224184DF00970543 /* sqlite3.h */; };
-		3CF5EB4C224184DF00970543 /* sqlite3.c in Sources */ = {isa = PBXBuildFile; fileRef = 3CF5EB4A224184DF00970543 /* sqlite3.c */; };
+		3CE8343B22418B4900140A4A /* sqlite3.c in Sources */ = {isa = PBXBuildFile; fileRef = 3CE8343922418B4900140A4A /* sqlite3.c */; };
+		3CE8343C22418B4900140A4A /* sqlite3.h in Headers */ = {isa = PBXBuildFile; fileRef = 3CE8343A22418B4900140A4A /* sqlite3.h */; };
 		C7DCD6E41BE0295900F3300E /* SQLite.h in Headers */ = {isa = PBXBuildFile; fileRef = C7DCD6E21BE0295900F3300E /* SQLite.h */; };
 		C7DCD6E51BE0295A00F3300E /* SQLite.m in Sources */ = {isa = PBXBuildFile; fileRef = C7DCD6E31BE0295900F3300E /* SQLite.m */; };
 		C7DCD7141BE2D5DE00F3300E /* SQLiteResult.m in Sources */ = {isa = PBXBuildFile; fileRef = C7DCD7131BE2D5DE00F3300E /* SQLiteResult.m */; };
@@ -31,8 +31,8 @@
 /* Begin PBXFileReference section */
 		3C9CC8532225B03700FDC2BE /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		3C9CC8552225B03C00FDC2BE /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		3CF5EB49224184DF00970543 /* sqlite3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = sqlite3.h; path = ../common/sqlite3.h; sourceTree = "<group>"; };
-		3CF5EB4A224184DF00970543 /* sqlite3.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = sqlite3.c; path = ../common/sqlite3.c; sourceTree = "<group>"; };
+		3CE8343922418B4900140A4A /* sqlite3.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = sqlite3.c; path = ../common/sqlite3.c; sourceTree = "<group>"; };
+		3CE8343A22418B4900140A4A /* sqlite3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = sqlite3.h; path = ../common/sqlite3.h; sourceTree = "<group>"; };
 		C7DCD6E21BE0295900F3300E /* SQLite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SQLite.h; sourceTree = "<group>"; };
 		C7DCD6E31BE0295900F3300E /* SQLite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SQLite.m; sourceTree = "<group>"; };
 		C7DCD7131BE2D5DE00F3300E /* SQLiteResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SQLiteResult.m; sourceTree = "<group>"; };
@@ -76,8 +76,8 @@
 		E23D7B3E1ACEFE2A00C59171 = {
 			isa = PBXGroup;
 			children = (
-				3CF5EB4A224184DF00970543 /* sqlite3.c */,
-				3CF5EB49224184DF00970543 /* sqlite3.h */,
+				3CE8343922418B4900140A4A /* sqlite3.c */,
+				3CE8343A22418B4900140A4A /* sqlite3.h */,
 				C7DCD6E11BE0293D00F3300E /* SQLite */,
 				E23D7B481ACEFE2A00C59171 /* Products */,
 				3C9CC8522225B03700FDC2BE /* Frameworks */,
@@ -101,7 +101,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3CF5EB4B224184DF00970543 /* sqlite3.h in Headers */,
+				3CE8343C22418B4900140A4A /* sqlite3.h in Headers */,
 				C7DCD6E41BE0295900F3300E /* SQLite.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -164,7 +164,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C7DCD7141BE2D5DE00F3300E /* SQLiteResult.m in Sources */,
-				3CF5EB4C224184DF00970543 /* sqlite3.c in Sources */,
+				3CE8343B22418B4900140A4A /* sqlite3.c in Sources */,
 				C7DCD6E51BE0295A00F3300E /* SQLite.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
