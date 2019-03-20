@@ -7,8 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		8D599B8E1C999AAF00170CA4 /* sqlite3.c in Sources */ = {isa = PBXBuildFile; fileRef = 8D599B8C1C999AAF00170CA4 /* sqlite3.c */; };
-		8D599B8F1C999AAF00170CA4 /* sqlite3.h in Headers */ = {isa = PBXBuildFile; fileRef = 8D599B8D1C999AAF00170CA4 /* sqlite3.h */; };
+		3C9CC8542225B03700FDC2BE /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C9CC8532225B03700FDC2BE /* Security.framework */; };
+		3C9CC8562225B03C00FDC2BE /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C9CC8552225B03C00FDC2BE /* Foundation.framework */; };
+		3CF5EB4B224184DF00970543 /* sqlite3.h in Headers */ = {isa = PBXBuildFile; fileRef = 3CF5EB49224184DF00970543 /* sqlite3.h */; };
+		3CF5EB4C224184DF00970543 /* sqlite3.c in Sources */ = {isa = PBXBuildFile; fileRef = 3CF5EB4A224184DF00970543 /* sqlite3.c */; };
 		C7DCD6E41BE0295900F3300E /* SQLite.h in Headers */ = {isa = PBXBuildFile; fileRef = C7DCD6E21BE0295900F3300E /* SQLite.h */; };
 		C7DCD6E51BE0295A00F3300E /* SQLite.m in Sources */ = {isa = PBXBuildFile; fileRef = C7DCD6E31BE0295900F3300E /* SQLite.m */; };
 		C7DCD7141BE2D5DE00F3300E /* SQLiteResult.m in Sources */ = {isa = PBXBuildFile; fileRef = C7DCD7131BE2D5DE00F3300E /* SQLiteResult.m */; };
@@ -27,8 +29,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		8D599B8C1C999AAF00170CA4 /* sqlite3.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = sqlite3.c; path = ../common/sqlite3.c; sourceTree = "<group>"; };
-		8D599B8D1C999AAF00170CA4 /* sqlite3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = sqlite3.h; path = ../common/sqlite3.h; sourceTree = "<group>"; };
+		3C9CC8532225B03700FDC2BE /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		3C9CC8552225B03C00FDC2BE /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		3CF5EB49224184DF00970543 /* sqlite3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = sqlite3.h; path = ../common/sqlite3.h; sourceTree = "<group>"; };
+		3CF5EB4A224184DF00970543 /* sqlite3.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = sqlite3.c; path = ../common/sqlite3.c; sourceTree = "<group>"; };
 		C7DCD6E21BE0295900F3300E /* SQLite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SQLite.h; sourceTree = "<group>"; };
 		C7DCD6E31BE0295900F3300E /* SQLite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SQLite.m; sourceTree = "<group>"; };
 		C7DCD7131BE2D5DE00F3300E /* SQLiteResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SQLiteResult.m; sourceTree = "<group>"; };
@@ -41,17 +45,26 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3C9CC8562225B03C00FDC2BE /* Foundation.framework in Frameworks */,
+				3C9CC8542225B03700FDC2BE /* Security.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3C9CC8522225B03700FDC2BE /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				3C9CC8552225B03C00FDC2BE /* Foundation.framework */,
+				3C9CC8532225B03700FDC2BE /* Security.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		C7DCD6E11BE0293D00F3300E /* SQLite */ = {
 			isa = PBXGroup;
 			children = (
-				8D599B8C1C999AAF00170CA4 /* sqlite3.c */,
-				8D599B8D1C999AAF00170CA4 /* sqlite3.h */,
 				C7DCD6E21BE0295900F3300E /* SQLite.h */,
 				C7DCD6E31BE0295900F3300E /* SQLite.m */,
 				C7DCD7151BE2D61E00F3300E /* SQLiteResult.h */,
@@ -63,8 +76,11 @@
 		E23D7B3E1ACEFE2A00C59171 = {
 			isa = PBXGroup;
 			children = (
+				3CF5EB4A224184DF00970543 /* sqlite3.c */,
+				3CF5EB49224184DF00970543 /* sqlite3.h */,
 				C7DCD6E11BE0293D00F3300E /* SQLite */,
 				E23D7B481ACEFE2A00C59171 /* Products */,
+				3C9CC8522225B03700FDC2BE /* Frameworks */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -85,7 +101,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8D599B8F1C999AAF00170CA4 /* sqlite3.h in Headers */,
+				3CF5EB4B224184DF00970543 /* sqlite3.h in Headers */,
 				C7DCD6E41BE0295900F3300E /* SQLite.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -148,7 +164,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C7DCD7141BE2D5DE00F3300E /* SQLiteResult.m in Sources */,
-				8D599B8E1C999AAF00170CA4 /* sqlite3.c in Sources */,
+				3CF5EB4C224184DF00970543 /* sqlite3.c in Sources */,
 				C7DCD6E51BE0295A00F3300E /* SQLite.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -181,6 +197,7 @@
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
+					"SQLITE_HAS_CODEC=1",
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -192,6 +209,13 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				OTHER_CFLAGS = (
+					"-DSQLITE_HAS_CODEC",
+					"-DSQLITE_TEMP_STORE=3",
+					"-DSQLCIPHER_CRYPTO_CC",
+					"-DSQLITE_ENABLE_JSON1",
+					"-DNDEBUG",
+				);
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -217,6 +241,7 @@
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_PREPROCESSOR_DEFINITIONS = "SQLITE_HAS_CODEC=1";
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
@@ -225,6 +250,13 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_CFLAGS = (
+					"-DSQLITE_HAS_CODEC",
+					"-DSQLITE_TEMP_STORE=3",
+					"-DSQLCIPHER_CRYPTO_CC",
+					"-DSQLITE_ENABLE_JSON1",
+					"-DNDEBUG",
+				);
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
