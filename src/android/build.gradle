@@ -30,6 +30,6 @@ repositories {
 }
 
 dependencies {
-    implementation 'com.facebook.react:react-native:0.14.+'
+    implementation 'com.facebook.react:react-native:+'
     implementation 'net.zetetic:android-database-sqlcipher:3.5.9@aar'
 }
